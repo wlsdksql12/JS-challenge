@@ -1,14 +1,31 @@
 const loginForm = document.getElementById("login-form");
 const loginInput = document.querySelector("#login-form input");
 const loginButton = document.querySelector("#login-form button");
+const greeting = document.querySelector("#greeting");
+
+const USERNAME_KEY = "username";
 
 function onLoginSubmit(e) {
   e.preventDefault();
   const username = loginInput.value;
-  console.log(username);
+  loginForm.classList.add("hidden");
+  localStorage.setItem(USERNAME_KEY, username);
+  paintGreetings(username);
 }
 
-loginForm.addEventListener("submit", onLoginSubmit);
+function paintGreetings(username) {
+  greeting.innerText = `Hello ${username}`;
+  greeting.classList.remove("hidden");
+}
+
+const savedUsername = localStorage.getItem(USERNAME_KEY);
+
+if (savedUsername === null) {
+  loginForm.classList.remove("hidden");
+  loginForm.addEventListener("submit", onLoginSubmit);
+} else {
+  paintGreetings(savedUsername);
+}
 
 // function onLoginBtnClick() {
 //   const username = loginInput.value;
