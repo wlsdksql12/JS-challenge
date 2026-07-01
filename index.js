@@ -2,6 +2,7 @@ const loginForm = document.getElementById("login-form");
 const loginInput = document.querySelector("#login-form input");
 const loginButton = document.querySelector("#login-form button");
 const greeting = document.querySelector("#greeting");
+const clock = document.querySelector("#clock");
 
 const USERNAME_KEY = "username";
 
@@ -37,3 +38,30 @@ if (savedUsername === null) {
 // }
 
 // loginButton.addEventListener("click", onLoginBtnClick);
+
+function getClock() {
+  const date = new Date();
+  const hours = date.getHours();
+  const minutes = String(date.getMinutes()).padStart(2, "0");
+  const seconds = String(date.getSeconds()).padStart(2, "0");
+  let time = "";
+  if (hours > 12) {
+    hours = hours - 12;
+    time = `오후 ${hours}:${minutes}:${seconds}`;
+  } else {
+    time = `오전 ${hours}:${minutes}:${seconds}`;
+  }
+
+  clock.innerText = time;
+}
+
+getClock();
+setInterval(getClock, 1000);
+
+const quote = document.querySelector("#quote span:first-child");
+const author = document.querySelector("#quote span:last-child");
+
+const todayQuote = quotes[Math.floor(Math.random() * quotes.length)];
+
+quote.innerText = todayQuote.quote;
+author.innerText = todayQuote.author;
